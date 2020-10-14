@@ -4,9 +4,14 @@ from os.path import isfile, join
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-additon_regex = r'dodaje się (art\.|ust\.|pkt[.]?|§|lit[.]?) [0-9]+'
-removal_regex = r'([0-9]+[a-z]? skreśla się)|(skreśla się (ust[.]?|atr[.]?|pkt[.]?|§|lit[.]?) [0-9]*[a-z]?)'
-change_regex = r'(pkt[.]?|art\.|ust\.|§|lit[.]?) ([0-9]*[a-z]?( | i |, |-))+otrzymuj(e|ą) brzmienie'
+
+additon_regex = r'dodaje się (art|pkt|lit|ust|§)'
+# removal_regex = r'(skreśla się (pkt|art|ust|lit|§))|([0-9]+[a-z]? skreśla się)'
+# change_regex = r'(pkt|art\.|ust\.|§|lit\.) ([0-9]+[a-z]?( | i |, |-))+otrzymuj(e|ą) brzmienie'
+
+#additon_regex = r'dodaje się (art|ust|pkt|§|lit)'
+removal_regex = r'([0-9]+[a-z]? skreśla się)|(skreśla się (ust|art|pkt|§|lit))'
+change_regex = r'(pkt|art\.|ust\.|§|lit\.) ([0-9]*[a-z]?( | i |, |-))+otrzymuj(e|ą) brzmienie'
 
 USE_PRECOMPUTED = False
 
@@ -57,28 +62,12 @@ print(addtion_found)
 print(removal_found)
 print(change_found)
 
-# offset_add = 0.5
-# offset_rem = 1.5
-# offset_change = 2.5
-# width = 1
-# set_width = 5
-# x_add = [set_width*i+offset_add for i in range(len(addtion_found))]
-# x_rem = [set_width*i+offset_rem for i in range(len(addtion_found))]
-# x_change = [set_width*i+offset_change for i in range(len(addtion_found))]
-# h_add = list(addtion_found.values())
-# h_rem = list(removal_found.values())
-# h_change = list(change_found.values())
+
 tick_label = list(addtion_found.keys())
 red_patch = mpatches.Patch(color='red', label='removed')
 green_patch = mpatches.Patch(color='green', label='added')
 yellow_patch = mpatches.Patch(color='yellow', label='changed')
-#
-#
-# plt.bar(x_add,h_add,width=width,color='green')
-# plt.bar(x_rem,h_rem,width=width,color='red',tick_label=tick_label)
-# plt.bar(x_change,h_change,width=width,color='yellow')
-# plt.legend(handles =[red_patch,green_patch,yellow_patch])
-# plt.show()
+
 
 x_adds = []
 x_rems = []
@@ -97,9 +86,5 @@ plt.xlabel('year')
 plt.ylabel('% of total operations in given year')
 
 plt.show()
-#
-# print(test_str)
-# print(regex.findall(additon_regex,test_str))
-# print(regex.findall(removal_regex,test_str))
-# print(regex.findall(change_regex,test_str))
+
 
