@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 additon_regex = r'dodaje się (art\.|ust\.|pkt[.]?|§|lit[.]?) [0-9]+'
-removal_regex = r'([0-9]+[a-z]? skreśla się)|(skreśla się (ust[.]?|atr[.]?|pkt[.]?|§|lit[.]?) [0-9]*)'
-change_regex = r'(pkt[.]?|art\.|ust\.|§|lit[.]?) [0-9]+[a-z]? otrzymuje brzmienie'
+removal_regex = r'([0-9]+[a-z]? skreśla się)|(skreśla się (ust[.]?|atr[.]?|pkt[.]?|§|lit[.]?) [0-9]*[a-z]?)'
+change_regex = r'(pkt[.]?|art\.|ust\.|§|lit[.]?) ([0-9]*[a-z]?( | i |, |-))+otrzymuj(e|ą) brzmienie'
 
-USE_PRECOMPUTED = True
+USE_PRECOMPUTED = False
 
 ## asuming all was .lower()
 

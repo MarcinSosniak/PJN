@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 
-ustawa_regex = r'(ustawa|ustawy|ustawie|ustawą|ustawę|ustawo)'
+ustawa_regex = r'ustaw(a|y|ie|ę|ą|o|y|om|ami|ach)'
 
-ustawa_z_z_dnia = ustawa_regex + r' z dnia'
-ustwa_bez_z_dnia = ustawa_regex + r'( |)(?!z dnia)'
+ustawa_z_z_dnia = r'ustaw(a|y|ie|ę|ą|o|y|om|ami|ach) z dnia'
+ustwa_bez_z_dnia =r'ustaw(a|y|ie|ę|ą|o|y|om|ami|ach)(?! \bz dnia\b)'
+
 
 
 ustaw = 0
