@@ -4,6 +4,8 @@ from os.path import isfile, join
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
+
+DATA_PATH  = '../data'
 #
 # ustawa_regex = r'ustaw(a|y|ie|ę|ą|o|y|om|ami|ach)'
 #
@@ -27,13 +29,13 @@ utawa_z_o_zmianie = 0
 # print(regex.findall(ustwa_bez_z_dnia, 'ustawa z dnia'))
 
 
-onlyfiles = [f for f in listdir('data') if isfile(join('data', f))]
+onlyfiles = [f for f in listdir(DATA_PATH) if isfile(join(DATA_PATH, f))]
 for i, file in enumerate(onlyfiles):
     if i % 50 == 0:
         print('processing {}/{}'.format(i, len(onlyfiles)))
     file_content = None
     year = file.split('_')[0]
-    with open('data/' + file, 'r', encoding='utf-8') as f:
+    with open(DATA_PATH+'/' + file, 'r', encoding='utf-8') as f:
         file_content = f.read().lower()
     # print(regex.findall(ustawa_regex,file_content))
     # print(regex.findall(ustawa_z_z_dnia,file_content))

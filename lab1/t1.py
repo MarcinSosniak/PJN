@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 
+DATA_PATH  = '../data'
+
 additon_regex = r'dodaje się (art|pkt|lit|ust|§)'
 # removal_regex = r'(skreśla się (pkt|art|ust|lit|§))|([0-9]+[a-z]? skreśla się)'
 # change_regex = r'(pkt|art\.|ust\.|§|lit\.) ([0-9]+[a-z]?( | i |, |-))+otrzymuj(e|ą) brzmienie'
@@ -23,7 +25,7 @@ with open('data/2004_2158.txt', 'r', encoding='utf-8') as f:
     test_str = f.read().lower()
 
 
-onlyfiles = [f for f in listdir('data') if isfile(join('data', f))]
+onlyfiles = [f for f in listdir(DATA_PATH) if isfile(join(DATA_PATH, f))]
 
 
 addtion_found = {}
@@ -40,7 +42,7 @@ else:
             print('additions : {}\nremovals : {}\nchanges : {}'.format(addtion_found, removal_found, change_found))
         file_content = None
         year = file.split('_')[0]
-        with open('data/'+file, 'r', encoding='utf-8') as f:
+        with open(DATA_PATH+'/'+file, 'r', encoding='utf-8') as f:
             file_content = f.read().lower()
         if not year in addtion_found:
             addtion_found[year] = 0

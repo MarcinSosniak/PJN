@@ -1,0 +1,1 @@
+MAIN_INDEX_NAME= 'ustawy'
