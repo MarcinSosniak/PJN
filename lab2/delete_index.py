@@ -11,3 +11,15 @@ es = Elasticsearch([
 
 es.indices.delete(index=MAIN_INDEX_NAME)
 # print(es.get(index=))
+
+
+# l=[1,2,3]
+#
+# a =2
+#
+# print(list(map(lambda x: x+a,l)))
+# a=3
+# print(list(map(lambda x: x+a,l)))
+# ml = map(lambda x: x+a,l)
+# a=4
+# print(list(ml))

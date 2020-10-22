@@ -21,30 +21,41 @@ onlyfiles = [f for f in listdir(DATA_PATH) if isfile(join(DATA_PATH, f))]
 
 
 try:
-    es.indices.create(
-        index=MAIN_INDEX_NAME,
-        body={
-          'settings': {
+    es.indices.create(index=MAIN_INDEX_NAME, body={
+        'settings': {
             # custom analyzer for analyzing file paths
             'analysis': {
                 "analyzer": {
-                    "custom_standard_analyzer":{
-                        "type" : "morfologik",
+                    "polish":{
+                        "type" : "custom",
                         "tokenizer" : "standard",
-                        "filter" : ["lowercase", "synonym"]
-                }},
+                        "filter" : ["lowercase", "synonym","morfologik_stem"]
+                    }
+                },
                 "filter": {
-                  "synonym": {
-                    "type": "synonym",
-                    # "lenient": True,
-                    "synonyms": [ "kpk => kodeks postępowania karnego" ,"kpc => kodeks postępowania cywilnego", "kk => kodeks karny", "kc => kodeks cywilny"]
-                  }
+                      "synonym": {
+                        "type": "synonym",
+                         "tokenizer": "standard",
+                        "synonyms": [ "kpk, kodeks postępowania karnego", "kpc, kodeks postępowania cywilnego", "kk, kodeks karny", "kc, kodeks cywilny"]
+                      }
                 }
             }
-          }
-        })
+        },
+        "mappings": {
+            "dynamic": "strict",
+            "properties": {
+                "text": {
+                    "type": "text",
+                    "analyzer": "polish"
+                },
+                "name": {"type": "text"}
+            }
+        }
+    })
 except elasticsearch.exceptions.RequestError as e:
-    if not str(e).startswith('RequestError(400, \'resource_already_exists_exception\', \'index ['+MAIN_INDEX_NAME+'/'):
+    if True: #not str(e).startswith('RequestError(400, \'resource_already_exists_exception\', \'index ['+MAIN_INDEX_NAME+'/'):
+        raise e
+    else:
         raise e
 
 
@@ -59,4 +70,45 @@ for i, file in enumerate(onlyfiles):
 
 
 
-
+#
+#
+# try:
+#     es.indices.create(
+#         index=MAIN_INDEX_NAME,
+#         body={
+#           'settings': {
+#             # custom analyzer for analyzing file paths
+#             'analysis': {
+#                 "analyzer": {
+#                     "polish":{
+#                         "type" : "morfologik",
+#                         "tokenizer" : "standard",
+#                         "filter" : ["lowercase", "synonym","morfologik_stem"]
+#                 }},
+#                 "filter": {
+#                   "synonym": {
+#                     "type": "synonym",
+#                      "tokenizer": "standard",
+#                     # "lenient": True,
+#                     "synonyms": [ "kpk => kodeks postępowania karnego" ,"kpc => kodeks postępowania cywilnego", "kk => kodeks karny", "kc => kodeks cywilny"]
+#                   }
+#                 },
+#                 "mappings": {
+#                     "dynamic": "strict",
+#                     "properties": {
+#                         "text": {
+#                             "type": "text",
+#                             "analyzer": "polish"
+#                         },
+#                         "name": {"type": "text"}
+#                     }
+#                 }
+#
+#             }
+#           }
+#         })
+# except elasticsearch.exceptions.RequestError as e:
+#     if True: #not str(e).startswith('RequestError(400, \'resource_already_exists_exception\', \'index ['+MAIN_INDEX_NAME+'/'):
+#         raise e
+#     else:
+#         raise e

@@ -12,16 +12,17 @@ es = Elasticsearch([
 
 res= es.search(index=MAIN_INDEX_NAME,body={
   "query": {
-    "regexp": {
+    "match": {
       "text": {
-        # "value": r'(ustaw(a|y|ie|ę|ą|o|y|om|ami|ach))|(ustaw)',
-        "value": "ustawa",
+        "query": "konstytucja",
       }
     }
   }})
-
-print(res.keys())
-print(res['hits'].keys())
-print(res['hits']['hits'])
-print(res['hits']['total']['value'])
+# print(res)
+# print(res.keys())
+# print(res['hits'].keys())
+# print(res['hits']['hits'].__class__)
+# print(res['hits']['total']['value'].__class__)
+# print(res['hits']['hits'][0]['_source']['name'])
+print('total documents containg word \'ustawa\' in any form {}'.format(res['hits']['total']['value']))
 
